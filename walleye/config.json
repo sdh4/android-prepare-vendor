@@ -553,10 +553,8 @@
         "system/app/QAS_DVC_MSP_VZW/QAS_DVC_MSP_VZW.apk",
         "system/product/app/VZWAPNLib/VZWAPNLib.apk",
         "system/app/vzw_msdc_api/vzw_msdc_api.apk",
-        //"system/framework/VerizonUnifiedSettings.jar",
         "system/product/priv-app/AmbientSensePrebuilt/AmbientSensePrebuilt.apk::PRESIGNED",
         "system/product/priv-app/HotwordEnrollmentOKGoogleWCD9340/HotwordEnrollmentOKGoogleWCD9340.apk::PRESIGNED",
-        //"system/priv-app/HotwordEnrollmentTGoogleWCD9340/HotwordEnrollmentTGoogleWCD9340.apk::PRESIGNED",
         "system/product/priv-app/HotwordEnrollmentXGoogleWCD9340/HotwordEnrollmentXGoogleWCD9340.apk::PRESIGNED",
         "system/product/priv-app/MyVerizonServices/MyVerizonServices.apk",
         "system/product/priv-app/OBDM_Permissions/OBDM_Permissions.apk",
@@ -564,7 +562,6 @@
         "system/priv-app/OemDmTrigger/OemDmTrigger.apk",
         "system/product/priv-app/SprintDM/SprintDM.apk",
         "system/product/priv-app/SprintHM/SprintHM.apk",
-        //"system/priv-app/VerizonAuthDialog/VerizonAuthDialog.apk",
         "system/priv-app/VzwOmaTrigger/VzwOmaTrigger.apk"
       ],
       "system-other": [
@@ -578,7 +575,6 @@
         "system/product/etc/permissions/com.verizon.apn.xml",
         "system/etc/permissions/com.verizon.embms.xml",
         "system/etc/permissions/com.verizon.llkagent.xml",
-        //"system/etc/permissions/com.verizon.provider.xml",
         "system/product/etc/permissions/com.verizon.services.xml",
         "system/product/etc/permissions/features-verizon.xml",
         "system/product/etc/permissions/obdm_permissions.xml",
