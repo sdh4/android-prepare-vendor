@@ -546,7 +546,7 @@
         "    ro.oem_unlock.pst_offset=6144"
       ],
       "vendor-skip-files": []
-    }
+    },
     "full": {
       "overlays-dir": "",
       "system-bytecode": [
