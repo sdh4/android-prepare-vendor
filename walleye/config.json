@@ -529,6 +529,7 @@
         "system/lib64/vendor.qti.qcril.am@1.0.so"
       ],
       "product-bytecode": [],
+      "product-other": [],
       "forced-modules": [
         "com.android.ims.rcsmanager",
         "RcsService",
@@ -584,6 +585,8 @@
         "system/etc/sysconfig/pixel_2017_exclusive.xml",
         "system/product/etc/sysconfig/whitelist_com.android.omadm.service.xml"
       ],
+      "product-bytecode": [],
+      "product-other": [],
       "forced-modules": [],
       "new-modules": [],
       "dep-dso": [],
