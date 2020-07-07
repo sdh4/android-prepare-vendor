@@ -9,7 +9,7 @@ set -u # fail on undefined variable
 
 readonly SCRIPTS_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly TMP_WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}"/android_prepare_vendor.XXXXXX) || exit 1
-declare -a SYS_TOOLS=("mkdir" "dirname" "date" "touch" "wget" "mount" "shasum" "unzip")
+declare -a SYS_TOOLS=("mkdir" "curl" "dirname" "date" "touch" "mount" "shasum" "unzip")
 readonly HOST_OS="$(uname -s)"
 
 # Realpath implementation in bash (required for macOS support)
@@ -60,6 +60,7 @@ cat <<_EOF
       -b|--buildID <id>  : BuildID string (e.g. MMB29P)
       -o|--output <path> : Path to save generated vendor data
       -i|--img <path>    : [OPTIONAL] Read factory image archive from file instead of downloading
+      -O|--ota <path>    : [OPTIONAL] Read OTA image archive from file instead of downloading
       -j|--java <path    : [OPTIONAL] Java path to use instead of system auto detected global version
       -f|--full    : [OPTIONAL] Use config with all non-essential OEM blobs to be compatible with GApps (default: false)
       -k|--keep    : [OPTIONAL] Keep all extracted factory images & repaired data (default: false)
@@ -143,7 +144,7 @@ oatdump_deps_download() {
     download_url="L_OATDUMP_URL_API$api_level"
   fi
 
-  wget -O "$out_file" "${!download_url}" || {
+  curl -L -o "$out_file" "${!download_url}" || {
     echo "[-] oatdump dependencies download failed"
     abort 1
   }
@@ -246,7 +247,7 @@ update_java_path() {
     __javahome="$__javapath"
     JAVA_FOUND=true
   else
-    readonly __JAVALINK=$(which java)
+    readonly __JAVALINK=$(command -v java)
     if [[ "$__JAVALINK" == "" ]]; then
       echo "[!] Java not found in system"
     else
@@ -323,6 +324,7 @@ DEVICE=""
 BUILDID=""
 OUTPUT_DIR=""
 INPUT_IMG=""
+INPUT_OTA=""
 KEEP_DATA=false
 DEV_ALIAS=""
 API_LEVEL=""
@@ -374,6 +376,10 @@ do
       ;;
     -i|--imgs)
       INPUT_IMG="$(_realpath "$2")"
+      shift
+      ;;
+    -O|--ota)
+      INPUT_OTA="$(_realpath "$2")"
       shift
       ;;
     -f|--full)
@@ -520,7 +526,7 @@ fi
 
 if [ "$OTA" = true ]; then
 OtaArchive=""
-if [[ "$INPUT_IMG" == "" ]]; then
+if [[ "$INPUT_OTA" == "" ]]; then
 
   # Factory image alias for devices with naming incompatibilities with AOSP
   if [[ "$DEVICE" == "flounder" && "$DEV_ALIAS" == "" ]]; then
@@ -544,7 +550,7 @@ if [[ "$INPUT_IMG" == "" ]]; then
   OtaArchive="$(find "$OUT_BASE" -iname "*$DEV_ALIAS*ota-$BUILDID*.tgz" -or \
                        -iname "*$DEV_ALIAS*ota-$BUILDID*.zip" | head -1)"
 else
-  OtaArchive="$INPUT_IMG"
+  OtaArchive="$INPUT_OTA"
 fi
 fi
 
@@ -722,6 +728,7 @@ FORCE_PREOPT=false
 if [ $DEODEX_ALL = false ]; then
   BYTECODE_LIST="$TMP_WORK_DIR/bytecode_list.txt"
   jqIncRawArray "$API_LEVEL" "$CONFIG_TYPE" "system-bytecode" "$CONFIG_FILE" > "$BYTECODE_LIST"
+  jqIncRawArray "$API_LEVEL" "$CONFIG_TYPE" "product-bytecode" "$CONFIG_FILE" >> "$BYTECODE_LIST"
   REPAIR_SCRIPT_ARG+=( --bytecode-list "$BYTECODE_LIST")
 fi
 

@@ -11,7 +11,7 @@ readonly SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly CONSTS_SCRIPT="$SCRIPTS_DIR/constants.sh"
 readonly COMMON_SCRIPT="$SCRIPTS_DIR/common.sh"
 readonly TMP_WORK_DIR=$(mktemp -d "${TMPDIR:-/tmp}"/android_img_download.XXXXXX) || exit 1
-declare -a SYS_TOOLS=("curl" "wget")
+declare -a SYS_TOOLS=("curl")
 
 abort() {
   exit "$1"
@@ -155,18 +155,12 @@ done
 # Accept news ToS page
 accept_tos
 
-if [ "$OTA" = true ]; then
-  URL="$GURL2"
-else
-  URL="$GURL"
-fi
-
 # Then retrieve the index page
 if [ "$OTA" = true ]; then
-  url=$(curl -L -b "$COOKIE_FILE" --cookie "devsite_wall_acks=nexus-ota-tos" --silent "$URL" | \
+  url=$(curl -L -b "$COOKIE_FILE" --cookie "devsite_wall_acks=nexus-ota-tos" --silent "$GURL2" | \
         grep -i "<a href=.*$DEV_ALIAS-ota-$BUILDID-" | cut -d '"' -f2)
 else
-  url=$(curl -L -b "$COOKIE_FILE" --cookie "devsite_wall_acks=nexus-image-tos" --silent  "$URL" | \
+  url=$(curl -L -b "$COOKIE_FILE" --cookie "devsite_wall_acks=nexus-image-tos" --silent "$GURL" | \
         grep -i "<a href=.*$DEV_ALIAS-$BUILDID-" | cut -d '"' -f2)
 fi
 
@@ -177,6 +171,6 @@ fi
 
 echo "[*] Downloading image from '$url'"
 outFile=$OUTPUT_DIR/$(basename "$url")
-wget --continue -O "$outFile" "$url"
+curl -L -C - -o "$outFile" "$url"
 
 abort 0
