@@ -551,7 +551,6 @@
       "overlays-dir": "",
       "system-bytecode": [
         "system/product/app/VZWAPNLib/VZWAPNLib.apk",
-        "system/app/vzw_msdc_api/vzw_msdc_api.apk",
         "system/product/priv-app/AmbientSensePrebuilt/AmbientSensePrebuilt.apk::PRESIGNED",
         "system/product/priv-app/HotwordEnrollmentOKGoogleWCD9340/HotwordEnrollmentOKGoogleWCD9340.apk::PRESIGNED",
         "system/product/priv-app/HotwordEnrollmentXGoogleWCD9340/HotwordEnrollmentXGoogleWCD9340.apk::PRESIGNED",
@@ -572,7 +571,6 @@
         "system/etc/permissions/com.android.vzwomatrigger.xml",
         "system/etc/permissions/com.customermobile.preload.vzw.xml",
         "system/product/etc/permissions/com.verizon.apn.xml",
-        "system/etc/permissions/com.verizon.embms.xml",
         "system/etc/permissions/com.verizon.llkagent.xml",
         "system/product/etc/permissions/com.verizon.services.xml",
         "system/product/etc/permissions/features-verizon.xml",
