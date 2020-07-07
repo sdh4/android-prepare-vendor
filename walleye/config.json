@@ -550,7 +550,6 @@
     "full": {
       "overlays-dir": "",
       "system-bytecode": [
-        "system/app/QAS_DVC_MSP_VZW/QAS_DVC_MSP_VZW.apk",
         "system/product/app/VZWAPNLib/VZWAPNLib.apk",
         "system/app/vzw_msdc_api/vzw_msdc_api.apk",
         "system/product/priv-app/AmbientSensePrebuilt/AmbientSensePrebuilt.apk::PRESIGNED",
